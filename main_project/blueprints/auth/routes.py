@@ -7,6 +7,7 @@ from authlib.integrations.flask_client import OAuth
 from sqlalchemy import create_engine, text
 from main_project import db
 from functools import wraps
+import os
 
 
 auth_bp = Blueprint('auth_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
@@ -22,7 +23,7 @@ oauth = OAuth(current_app)
 bcrypt = Bcrypt(current_app)
 
 def get_db_connection():
-    engine = create_engine('mysql://oceoAdmin:oceoAdmin@localhost/oceo_management')
+    engine = create_engine(os.environ.get('DATABASE_URL'))
     print("Engine created")
     return engine.connect()
 
@@ -44,8 +45,8 @@ def login_required(f):
 
 @auth_bp.route('/google',methods=['GET', 'POST'])
 def google():
-    GOOGLE_CLIENT_ID = "483725292816-7o6i235adoidqqhfv1hi0738paa4cfvr.apps.googleusercontent.com"  # Your Google Client ID
-    GOOGLE_CLIENT_SECRET = "GOCSPX_JN9R4EpLa0Xx2V_bdqv02X9cqzTM"  # Your Google Client Secret
+    GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID') # "GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET') # "GOOGLE_CLIENT_SECRET
     CONF_URL = 'https://accounts.google.com/.well-known/openid-configuration'
 
     oauth.register(

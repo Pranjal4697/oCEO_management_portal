@@ -8,6 +8,7 @@ from sqlalchemy import create_engine, text
 from flask import session, redirect, url_for, render_template_string
 
 from main_project.blueprints.auth.routes import authenticate
+import os
 
 others_bp = Blueprint('others_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
 
@@ -24,7 +25,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine = create_engine('mysql://oceoAdmin:oceoAdmin@localhost/oceo_management')
+    engine =create_engine(os.environ.get('DATABASE_URL'))
     print("Engine created")
     return engine.connect()
 
@@ -126,13 +127,13 @@ def jobs_approved(type):
         # if request.method == 'POST':
         cursor = get_db_connection()
         if type =='admin':
-            query = 'SELECT * FROM application_status WHERE faculty_approved = "approved";'
+            query = "SELECT * FROM application_status WHERE faculty_approved = 'approved';"
         elif type =='dean':
-            query = 'SELECT * FROM application_status WHERE dean_approved = "approved";'
+            query = "SELECT * FROM application_status WHERE dean_approved = 'approved';"
         elif type =='sa_js':
-            query = 'SELECT * FROM application_status WHERE SA_approved = "approved";'
+            query = "SELECT * FROM application_status WHERE SA_approved = 'approved';"
         elif type =='oceo_coordinator':
-            query = 'SELECT * FROM application_status WHERE oceo_coordinator_approved = "approved";'
+            query = "SELECT * FROM application_status WHERE oceo_coordinator_approved = 'approved';"
 
         # query  = f'SELECT * FROM application_status WHERE {type}_approved = 1;' 
         result=cursor.execute(text(query))
@@ -183,13 +184,13 @@ def review_application(type):
             
         cursor = get_db_connection()
         if perm == 'faculty_approved':
-            query = f"SELECT * FROM application_status WHERE {perm} = 'rejected';"
+            query = f"SELECT * FROM application_status WHERE {perm} = 'pending';"
         elif perm == 'oceo_coordinator_approved':
-            query = f"SELECT * FROM application_status WHERE {perm} = 'rejected' and faculty_approved = 'approved';"
+            query = f"SELECT * FROM application_status WHERE {perm} = 'pending' and faculty_approved = 'approved';"
         elif perm == 'SA_approved':
-            query = f"SELECT * FROM application_status WHERE {perm} = 'rejected' and faculty_approved = 'approved' and oceo_coordinator_approved = 'approved';"
+            query = f"SELECT * FROM application_status WHERE {perm} = 'pending' and faculty_approved = 'approved' and oceo_coordinator_approved = 'approved';"
         elif perm == 'dean_approved':
-            query = f"SELECT * FROM application_status WHERE {perm} = 'rejected' and faculty_approved = 'approved' and oceo_coordinator_approved = 'approved' and SA_approved = 'approved';"
+            query = f"SELECT * FROM application_status WHERE {perm} = 'pending' and faculty_approved = 'approved' and oceo_coordinator_approved = 'approved' and SA_approved = 'approved';"
         # query = f'SELECT * FROM application_status WHERE {perm} = 0;'
        
         application_data =  cursor.execute(text(query)).fetchall()

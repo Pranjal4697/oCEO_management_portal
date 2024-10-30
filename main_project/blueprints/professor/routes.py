@@ -7,6 +7,7 @@ import random
 from main_project import bcrypt
 from sqlalchemy import create_engine, text
 from flask import session, redirect, url_for, render_template_string
+import os
 
 
 
@@ -22,7 +23,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine = create_engine('mysql://oceoAdmin:oceoAdmin@localhost/oceo_management')
+    engine =create_engine(os.environ.get('DATABASE_URL'))
     print("Engine created")
     return engine.connect()
 

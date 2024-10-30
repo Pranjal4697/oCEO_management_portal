@@ -8,6 +8,7 @@ from main_project import bcrypt
 from sqlalchemy import create_engine, text
 import datetime
 import base64
+import os
 
 from PIL import Image
 from io import BytesIO
@@ -23,7 +24,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine = create_engine('mysql://oceoAdmin:oceoAdmin@localhost/oceo_management')
+    engine = create_engine(os.environ.get('DATABASE_URL'))
     print("Engine created")
     return engine.connect()
 
@@ -536,7 +537,7 @@ def submit_timecard(job_id):
         roll_number = session['roll_number']
         cursor = get_db_connection()
         if request.method == 'POST':
-            if request.form['submit_button'] == "submit_timecard":
+            if request.form['submit_button'] == "Submit Timecard":
                 month = request.form.get('month')
                 year = request.form.get('year')
                 hours_worked = request.form.get('hours_worked')

@@ -3,6 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, text
 from main_project.config import Config  # Absolute import
+import os
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
