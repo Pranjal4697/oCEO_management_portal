@@ -1,11 +1,9 @@
 
 from flask import  render_template, request, redirect, url_for, session, Blueprint,current_app,flash
-from flask_mysqldb import MySQL
 from flask_bcrypt import Bcrypt
 from flask import session, redirect, url_for, render_template_string
 from authlib.integrations.flask_client import OAuth
 from sqlalchemy import create_engine, text
-from main_project import db
 from functools import wraps
 import os
 

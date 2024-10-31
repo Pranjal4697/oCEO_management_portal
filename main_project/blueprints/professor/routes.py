@@ -1,12 +1,10 @@
 
 
-from flask import Flask, render_template, request, redirect, url_for, session, Blueprint,current_app,g
-from flask_mysqldb import MySQL
-from flask_bcrypt import Bcrypt
+from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 import random
 from main_project import bcrypt
 from sqlalchemy import create_engine, text
-from flask import session, redirect, url_for, render_template_string
+from flask import session, redirect, url_for
 import os
 
 
