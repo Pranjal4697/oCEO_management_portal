@@ -1,4 +1,5 @@
-{ "version": 2,
+{
+    "version": 2,
     "builds": [
       {
         "src": "run.py",
@@ -6,11 +7,19 @@
       }
     ],
     "routes": [
-      { "src": "/", "dest": "main_project/templates" },
-      { "src": "/main_project/blueprints/students", "dest": "main_project/templates/students" },
-      {"src":"/main_project/blueprints/professor", "dest":"main_project/templates/professor"},
-      {"src":"/main_project/blueprints/other","dest":"main_project/templates/others"},
-      {"src":"/main_project/blueprints/auth","dest":"main_project/templates"}
-      
-    ]
+      {
+        "src": "/(.*)",
+        "dest": "run.py"
+      }
+    ],
+    "env": {
+      "FLASK_ENV": "production"
+    },
+    "functions": {
+      "run.py": {
+        "memory": 1024,
+        "maxDuration": 10
+      }
+    }
   }
+  
