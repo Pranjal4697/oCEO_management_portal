@@ -3,10 +3,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 from sqlalchemy import create_engine, text
 from flask import session, redirect, url_for
+# from dotenv import load_dotenv
 import os
 
 others_bp = Blueprint('others_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
-
+# load_dotenv()
 
 @others_bp.before_request
 def login_required():
@@ -20,7 +21,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine =create_engine(os.environ.get('DATABASE_URL'))
+    engine =create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI'))
     print("Engine created")
     return engine.connect()
 

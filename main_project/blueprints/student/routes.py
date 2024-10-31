@@ -7,10 +7,11 @@ from sqlalchemy import create_engine, text
 import datetime
 import base64
 import os
-
+# from dotenv import load_dotenv
 from PIL import Image
 from io import BytesIO
 
+# load_dotenv()
 student_bp = Blueprint('student_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
 
 @student_bp.before_request
@@ -22,7 +23,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine = create_engine(os.environ.get('DATABASE_URL'))
+    engine = create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI'))
     print("Engine created")
     return engine.connect()
 

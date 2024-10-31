@@ -5,12 +5,13 @@ from flask import session, redirect, url_for, render_template_string
 from authlib.integrations.flask_client import OAuth
 from sqlalchemy import create_engine, text
 from functools import wraps
+# from dotenv import load_dotenv
 import os
 
 
 auth_bp = Blueprint('auth_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
 
-
+# load_dotenv()
 
 
 # ------------------------------------------------------------------------------------------------------
@@ -21,7 +22,7 @@ oauth = OAuth(current_app)
 bcrypt = Bcrypt(current_app)
 
 def get_db_connection():
-    engine = create_engine(os.environ.get('DATABASE_URL'))
+    engine = create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI'))
     print("Engine created")
     return engine.connect()
 

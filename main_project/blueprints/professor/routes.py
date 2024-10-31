@@ -5,9 +5,10 @@ import random
 from main_project import bcrypt
 from sqlalchemy import create_engine, text
 from flask import session, redirect, url_for
+# from dotenv import load_dotenv
 import os
 
-
+# load_dotenv()
 
 
 professor_bp = Blueprint('professor_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
@@ -21,7 +22,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine =create_engine(os.environ.get('DATABASE_URL'))
+    engine =create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI'))
     print("Engine created")
     return engine.connect()
 
