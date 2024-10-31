@@ -1,8 +1,16 @@
 {
     "version": 2,
-    "builds": [
-      { "src": "run.py", "use": "@vercel/python" }
-    ],
+        "builds": [
+          {
+            "src": "run.py",
+            "use": "@vercel/python",
+            "config": {
+              "buildCommand": "apt-get update && apt-get install -y libmysqlclient-dev && pip install -r requirements.txt"
+            }
+          }
+        ]
+      
+      ,
     "routes": [
       { "src": "/(.*)", "dest": "run.py" }
     ]
