@@ -1,0 +1,16 @@
+{ "version": 2,
+    "builds": [
+      {
+        "src": "run.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      { "src": "/", "dest": "main_project/templates" },
+      { "src": "/main_project/blueprints/students", "dest": "main_project/templates/students" },
+      {"src":"/main_project/blueprints/professor", "dest":"main_project/templates/professor"},
+      {"src":"/main_project/blueprints/other","dest":"main_project/templates/others"},
+      {"src":"/main_project/blueprints/auth","dest":"main_project/templates"}
+      
+    ]
+  }
