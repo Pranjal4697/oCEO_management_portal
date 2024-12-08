@@ -1,15 +1,14 @@
 
 
-from flask import Flask, render_template, request, redirect, url_for, session, Blueprint,current_app,g
-from flask_mysqldb import MySQL
-from flask_bcrypt import Bcrypt
+from flask import Flask, render_template, request, redirect, url_for, session, Blueprint
 import random
 from main_project import bcrypt
 from sqlalchemy import create_engine, text
-from flask import session, redirect, url_for, render_template_string
+from flask import session, redirect, url_for
+# from dotenv import load_dotenv
 import os
 
-
+# load_dotenv()
 
 
 professor_bp = Blueprint('professor_bp', __name__,template_folder='templates',static_url_path='/static',static_folder='static')
@@ -23,7 +22,7 @@ def login_required():
 
 
 def get_db_connection():
-    engine =create_engine(os.environ.get('DATABASE_URL'))
+    engine =create_engine(os.environ.get('SQLALCHEMY_DATABASE_URI'))
     print("Engine created")
     return engine.connect()
 

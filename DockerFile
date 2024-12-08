@@ -1,0 +1,28 @@
+# Use an official Python image as a base
+FROM python:3.10-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV FLASK_APP=run.py
+
+# Install system dependencies, pkg-config, and MySQL client libraries
+RUN apt-get update && \
+    apt-get install -y gcc pkg-config libmariadb-dev   && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the requirements.txt file and install dependencies
+COPY requirements.txt /app/
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the entire project to the working directory
+COPY . /app
+
+# Expose the port that Vercel expects
+EXPOSE 10000
+
+# Command to run the application
+CMD ["flask", "run", "--host=0.0.0.0", "--port=10000"]

@@ -3,7 +3,9 @@ from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine, text
 from main_project.config import Config  # Absolute import
+# from dotenv import load_dotenv
 import os
+# load_dotenv()
 
 bcrypt = Bcrypt()
 db = SQLAlchemy()
